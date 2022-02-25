@@ -82,7 +82,8 @@ export class JestRunnerConfig {
 
   public get jestConfigPath(): string {
     // custom
-    const configPath: string = vscode.workspace.getConfiguration().get('jestrunner.configPath');
+    const currentFileName = vscode.window.activeTextEditor.document.fileName;
+    const configPath: string = /ts$/.test(currentFileName) ? 'jest.main.config.js' : 'jest.renderer.config.js';
     if (!configPath) {
       return this.findConfigPath();
     }
@@ -93,7 +94,8 @@ export class JestRunnerConfig {
 
   getJestConfigPath(targetPath: string): string {
     // custom
-    const configPath: string = vscode.workspace.getConfiguration().get('jestrunner.configPath');
+    const currentFileName = vscode.window.activeTextEditor.document.fileName;
+    const configPath: string = /ts$/.test(currentFileName) ? 'jest.main.config.js' : 'jest.renderer.config.js';
     if (!configPath) {
       return this.findConfigPath(targetPath);
     }
